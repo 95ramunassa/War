@@ -39,22 +39,6 @@ namespace Wojna
             return cards;
         }
 
-        /*public Card DrawsRandomCard()
-        {
-            var random = new Random();
-            return GetCard(random.Next(0, _cardTypes.Length), random.Next(0, _cardColours.Length));
-        }
-
-        public Card[] CreateRandomCards(int ammount)
-        {
-            var cards = new Card[ammount];
-            for (int i = 0; i < ammount; i++)
-            {
-                cards[i] = DrawsRandomCard();
-            }
-            return cards;
-        }*/
-
         public void PrintCardTypes()
         {
             Console.WriteLine("Typy kart w talii:");
