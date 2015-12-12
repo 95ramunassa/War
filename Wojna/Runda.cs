@@ -20,17 +20,58 @@ namespace Wojna
             {
                 Console.WriteLine(_zawodnicy[i].Name + "(" + _zawodnicy[i].NumberOfCards + ") rzucił: " + cards[i].Name);
             }
+
             Console.WriteLine("\nRozgrywam...\n");
+            var warCards = new List<Card>();
+            //while (CanWeDoTheWar()) warCards.AddRange(DoTheWar(GetWarPlayers()));
             var winCard = EmergeWinnerCard(cards);
             Console.WriteLine("Zwyciezka karta: " + winCard.Name);
-            var winner = CheckWinner(winCard);
+            var winner = GetZawodnikByCard(winCard);
             Console.WriteLine("Zwyciezca: " + winner.Name);
             winner.TakeCards(ThrowCards());
+            winner.TakeCards(warCards.ToArray());
         }
 
-        private Zawodnik CheckWinner(Card winCard)
+        private Zawodnik[] GetWarPlayers()
         {
-            return _zawodnicy.First(zawodnik => zawodnik.CheckCard() == winCard);
+            Card checkedCard = null;
+            var zawodnicy = new List<Zawodnik>();
+            foreach (var card in CheckCards())
+            {
+                if (checkedCard == null) checkedCard = card;
+                else if (card.IsEqual(checkedCard))
+                {
+                    var previousZawodnik = GetZawodnikByCard(checkedCard);
+                    if(!zawodnicy.Contains(previousZawodnik))
+                        zawodnicy.Add(previousZawodnik);
+                    zawodnicy.Add(GetZawodnikByCard(card));
+                    checkedCard = card;
+                }
+            }
+            return zawodnicy.ToArray();
+        }
+
+        private Card[] DoTheWar(Zawodnik[] zawodnicy)
+        {
+            var cards = new List<Card>();
+            return cards;
+        }
+
+        private bool CanWeDoTheWar()
+        {
+            Card checkedCard = null;
+            foreach (var card in CheckCards())
+            {
+                if (checkedCard == null) checkedCard = card;
+                else if (card.IsEqual(checkedCard))
+                    return true;
+            }
+            return false;
+        }
+
+        private Zawodnik GetZawodnikByCard(Card card)
+        {
+            return _zawodnicy.First(zawodnik => zawodnik.CheckCard() == card);
         }
 
         private static Card EmergeWinnerCard(IEnumerable<Card> cards)
@@ -51,6 +92,13 @@ namespace Wojna
         }
 
         private Card[] CheckCards() => _zawodnicy.Select(zawodnik => zawodnik.CheckCard()).ToArray();
-        private Card[] ThrowCards() => _zawodnicy.Select(zawodnik => zawodnik.ThrowCard()).ToArray();
+        private Card[] ThrowCards()
+        {
+            /*foreach (var zawodnik in _zawodnicy)
+            {
+                
+            }*/
+            return _zawodnicy.Select(zawodnik => zawodnik.ThrowCard()).ToArray();
+        }
     }
 }
