@@ -6,10 +6,10 @@
         {
             var talia = new Talia(new[]
             {
-                new CardColour("Trefl",0),
-                new CardColour("Pik", 0),
-                new CardColour("Karo", 0),
-                new CardColour("Kier", 0)
+                new CardColour("♥",0),
+                new CardColour("♠", 0),
+                new CardColour("♦", 0),
+                new CardColour("♣", 0)
             }, new[]
             {
                 new CardType("Dwójka", 2),
@@ -29,7 +29,7 @@
             
             var pack = new Pack(talia.GetAllCards());
 
-            var wojna = new GraWojna(new Zawodnik("Szymon", pack.Shuffle(pack.CardsAmmount / 2)), new Zawodnik("Michal", pack.Shuffle(pack.CardsAmmount)));
+            var wojna = new GraWojna(new Zawodnik("Szymon", pack.Distribute(16)), new Zawodnik("Michal", pack.Distribute(16)), new Zawodnik("Funia", pack.Distribute(16)));
             wojna.Graj();
         }
     }

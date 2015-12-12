@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 
 namespace Wojna
 {
@@ -13,14 +14,27 @@ namespace Wojna
             _cards = new Queue<Card>(cards);
         }
 
+        public bool IsHaveCard()
+        {
+            return _cards.Count > 0;
+        }
+
+        public Card CheckCard()
+        {
+            return _cards.Peek();
+        }
+
         public Card ThrowCard()
         {
             return _cards.Dequeue();
         }
 
-        public void TakeCard(Card card)
+        public void TakeCards(Card[] cards)
         {
-            _cards.Enqueue(card);
+            foreach (var card in cards)
+            {
+                _cards.Enqueue(card);
+            }
         }
 
         public void PrintCard()

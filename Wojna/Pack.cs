@@ -12,7 +12,7 @@ namespace Wojna
             _cards = cards;
         }
 
-        public List<Card> Shuffle(int ammount)
+        public List<Card> Distribute(int ammount)
         {
             //TODO: Throw exepction when ammount > _cards.length
             var random = new Random();
