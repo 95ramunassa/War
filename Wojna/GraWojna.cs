@@ -26,6 +26,8 @@ namespace Wojna
             {
                 Console.WriteLine("Runda " + _nrRundy);
                 var runda = new Runda(AktywniZawodnicy());
+                runda.Rozegraj();
+
                 Thread.Sleep(100);
             } while (true);
         }
