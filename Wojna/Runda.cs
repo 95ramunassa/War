@@ -23,7 +23,15 @@ namespace Wojna
 
             Console.WriteLine("\nRozgrywam...\n");
             var warCards = new List<Card>();
-            //while (CanWeDoTheWar()) warCards.AddRange(DoTheWar(GetWarPlayers()));
+            while (CanWeDoTheWar())
+            {
+                Console.WriteLine("\nWojenna Runda!\n");
+                var warPlayers = GetWarPlayers();
+                warCards.AddRange(warPlayers.Select(player => player.ThrowCard()));
+                var wojennaRunda = new Runda(warPlayers.ToList());
+                wojennaRunda.Rozegraj();
+            }
+            cards = CheckCards();
             var winCard = EmergeWinnerCard(cards);
             Console.WriteLine("Zwyciezka karta: " + winCard.Name);
             var winner = GetZawodnikByCard(winCard);
@@ -51,11 +59,7 @@ namespace Wojna
             return zawodnicy.ToArray();
         }
 
-        private Card[] DoTheWar(Zawodnik[] zawodnicy)
-        {
-            var cards = new List<Card>();
-            return cards;
-        }
+        private Zawodnik GetZawodnikByCard(Card card) => _zawodnicy.First(zawodnik => zawodnik.CheckCard() == card);
 
         private bool CanWeDoTheWar()
         {
@@ -67,11 +71,6 @@ namespace Wojna
                     return true;
             }
             return false;
-        }
-
-        private Zawodnik GetZawodnikByCard(Card card)
-        {
-            return _zawodnicy.First(zawodnik => zawodnik.CheckCard() == card);
         }
 
         private static Card EmergeWinnerCard(IEnumerable<Card> cards)
@@ -92,13 +91,6 @@ namespace Wojna
         }
 
         private Card[] CheckCards() => _zawodnicy.Select(zawodnik => zawodnik.CheckCard()).ToArray();
-        private Card[] ThrowCards()
-        {
-            /*foreach (var zawodnik in _zawodnicy)
-            {
-                
-            }*/
-            return _zawodnicy.Select(zawodnik => zawodnik.ThrowCard()).ToArray();
-        }
+        private Card[] ThrowCards() => _zawodnicy.Select(zawodnik => zawodnik.ThrowCard()).ToArray();
     }
 }

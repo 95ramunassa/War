@@ -29,7 +29,7 @@ namespace Wojna
                 var runda = new Runda(AktywniZawodnicy());
                 runda.Rozegraj();
 
-                Thread.Sleep(2000);
+                Thread.Sleep(10000);
             } while (AktywniZawodnicy().Count > 1);
         }
 
