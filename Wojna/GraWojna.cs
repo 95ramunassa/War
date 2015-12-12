@@ -24,12 +24,13 @@ namespace Wojna
         {
             do
             {
-                Console.WriteLine("Runda " + _nrRundy);
+                Console.Clear();
+                Console.WriteLine("------------- Runda " + ++_nrRundy + " -------------");
                 var runda = new Runda(AktywniZawodnicy());
                 runda.Rozegraj();
 
-                Thread.Sleep(100);
-            } while (true);
+                Thread.Sleep(2000);
+            } while (AktywniZawodnicy().Count > 1);
         }
 
         private List<Zawodnik> AktywniZawodnicy() =>  _zawodnicy.Where(zawodnik => zawodnik.IsHaveCard()).ToList();

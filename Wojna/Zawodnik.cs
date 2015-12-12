@@ -37,6 +37,8 @@ namespace Wojna
             }
         }
 
+        public int NumberOfCards => _cards.Count;
+
         public void PrintCard()
         {
             foreach (var card in _cards)
