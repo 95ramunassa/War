@@ -63,6 +63,7 @@
     <Compile Include="CardProperty.cs" />
     <Compile Include="CardType.cs" />
     <Compile Include="GraWojna.cs" />
+    <Compile Include="Runda.cs" />
     <Compile Include="Zawodnik.cs" />
     <Compile Include="Pack.cs" />
     <Compile Include="Program.cs" />

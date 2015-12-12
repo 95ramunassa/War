@@ -8,30 +8,35 @@ namespace Wojna
     internal class GraWojna
     {
         private readonly List<Zawodnik> _zawodnicy;
-        private int _rundy;
+        private int _nrRundy;
 
         public GraWojna(params Zawodnik[] zawodnicy)
         {
+            _nrRundy = 0;
             _zawodnicy = new List<Zawodnik>();
             foreach (var zawodnik in zawodnicy)
             {
                 _zawodnicy.Add(zawodnik);
             }
-            _rundy = 0;
         }
 
         public void Graj()
         {
             do
             {
+                Console.WriteLine("Runda " + _nrRundy);
+                var runda = new Runda(AktywniZawodnicy());
                 Thread.Sleep(100);
-            } while (Runda());
+            } while (true);
         }
 
-        private bool Runda()
+        private List<Zawodnik> AktywniZawodnicy() =>  _zawodnicy.Where(zawodnik => zawodnik.IsHaveCard()).ToList();
+
+
+        /*private bool Runda()
         {
             var cards = new List<Card>();
-            Console.WriteLine("Runda " + (++_rundy) + "!");
+            Console.WriteLine("Runda " + (++_nrRundy) + "!");
 
             foreach (var zawodnik in _zawodnicy)
             {
@@ -90,6 +95,6 @@ namespace Wojna
             }
 
             return winCard;
-        }
+        }*/
     }
 }
