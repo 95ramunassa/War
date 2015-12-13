@@ -70,11 +70,11 @@ namespace Wojna
 
         private bool CanWeDoTheWar()
         {
-            Card checkedCard = null;
-            foreach (var card in CheckCards())
+            var cards = CheckCards().ToArray();
+            var checkedCard = cards[0];
+            for (int i = 1; i < cards.Length; i++)
             {
-                if (checkedCard == null) checkedCard = card;
-                else if (card.IsEqual(checkedCard))
+                if (cards[i].IsEqual(checkedCard))
                     return true;
             }
             return false;
