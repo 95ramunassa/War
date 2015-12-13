@@ -29,7 +29,7 @@
             
             var pack = new Pack(talia.GetAllCards());
 
-            var wojna = new GraWojna(new Zawodnik("Szymon", pack.Distribute(16)), new Zawodnik("Michal", pack.Distribute(16)), new Zawodnik("Funia", pack.Distribute(16)));
+            var wojna = new GraWojna(new Zawodnik("Szymon", pack.DistributeShuffledCards(16)), new Zawodnik("Michal", pack.DistributeShuffledCards(16)), new Zawodnik("Funia", pack.DistributeShuffledCards(16)));
             wojna.Graj();
         }
     }
