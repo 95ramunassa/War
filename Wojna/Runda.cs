@@ -13,7 +13,7 @@ namespace Wojna
             _zawodnicy = zawodnicy;
         }
         
-        public void Rozegraj()
+        public void Rozegraj(bool czyWojennaRunda = false)
         {
             var cards = CheckCards();
             for (int i = 0; i < _zawodnicy.Count; i++)
@@ -23,14 +23,7 @@ namespace Wojna
 
             Console.WriteLine("\nRozgrywam...\n");
             var warCards = new List<Card>();
-            while (CanWeDoTheWar())
-            {
-                Console.WriteLine("\nWojenna Runda!\n");
-                var warPlayers = GetWarPlayers();
-                warCards.AddRange(warPlayers.Select(player => player.ThrowCard()));
-                var wojennaRunda = new Runda(warPlayers.ToList());
-                wojennaRunda.Rozegraj();
-            }
+            warCards.AddRange(DoTheWar());
             cards = CheckCards();
             var winCard = EmergeWinnerCard(cards);
             Console.WriteLine("Zwyciezka karta: " + winCard.Name);
@@ -39,6 +32,20 @@ namespace Wojna
             winner.TakeCards(ThrowCards());
             winner.TakeCards(warCards.ToArray());
         }
+
+        private List<Card> DoTheWar()
+        {
+            var warCards = new List<Card>();
+            while (CanWeDoTheWar())
+            {
+                Console.WriteLine("Wojenna runda...\n");
+                var warPlayers = GetWarPlayers();
+                warCards.AddRange(warPlayers.Select(player => player.ThrowCard()));
+                warCards.AddRange(warPlayers.Select(player => player.ThrowCard()));
+                DoTheWar();
+            }
+            return warCards;
+        } 
 
         private Zawodnik[] GetWarPlayers()
         {

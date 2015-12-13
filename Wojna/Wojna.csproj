@@ -62,6 +62,7 @@
     <Compile Include="CardColour.cs" />
     <Compile Include="CardProperty.cs" />
     <Compile Include="CardType.cs" />
+    <Compile Include="War.cs" />
     <Compile Include="GraWojna.cs" />
     <Compile Include="Runda.cs" />
     <Compile Include="Zawodnik.cs" />
