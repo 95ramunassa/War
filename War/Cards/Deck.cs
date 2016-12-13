@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace War.Deck
+namespace War.Cards
 {
-    public class Talia
+    public class Deck
     {
         private readonly CardColour[] _cardColours;
         private readonly CardType[] _cardTypes;
 
-        public Talia(CardColour[] cardColours, CardType[] cardTypes)
+        public Deck(CardColour[] cardColours, CardType[] cardTypes)
         {
             _cardColours = cardColours;
             _cardTypes = cardTypes;
@@ -28,7 +28,7 @@ namespace War.Deck
 
         public List<Card> GetAllCards(int ammount = 1)
         {
-            var cards = new List<Card>(ammount*_cardTypes.Length*_cardColours.Length);
+            var cards = new List<Card>(ammount * _cardTypes.Length * _cardColours.Length);
             for (int type = 0; type < _cardTypes.Length; type++)
             {
                 for (int color = 0; color < _cardColours.Length; color++)

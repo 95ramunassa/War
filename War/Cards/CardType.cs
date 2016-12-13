@@ -1,4 +1,4 @@
-namespace War.Deck
+namespace War.Cards
 {
     public class CardType : CardProperty
     {

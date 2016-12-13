@@ -1,25 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using War.Deck;
+using War.Cards;
 
 namespace War.Game
 {
-    public class Runda
+    public class Round
     {
-        private readonly List<Zawodnik> _zawodnicy;
+        private readonly List<Player> _players;
 
-        public Runda(List<Zawodnik> zawodnicy)
+        public Round(List<Player> players)
         {
-            _zawodnicy = zawodnicy;
+            _players = players;
         }
         
-        public void Rozegraj(bool czyWojennaRunda = false)
+        public void Play(bool isItAWarRound = false)
         {
             var cards = CheckCards();
-            for (int i = 0; i < _zawodnicy.Count; i++)
+            for (int i = 0; i < _players.Count; i++)
             {
-                Console.WriteLine(_zawodnicy[i].Name + "(" + _zawodnicy[i].NumberOfCards + ") rzucił: " + cards[i].Name);
+                Console.WriteLine(_players[i].Name + "(" + _players[i].NumberOfCards + ") rzucił: " + cards[i].Name);
             }
 
             Console.WriteLine("\nRozgrywam...\n");
@@ -28,7 +28,7 @@ namespace War.Game
             cards = CheckCards();
             var winCard = EmergeWinnerCard(cards);
             Console.WriteLine("Zwyciezka karta: " + winCard.Name);
-            var winner = GetZawodnikByCard(winCard);
+            var winner = GetPlayerByCard(winCard);
             Console.WriteLine("Zwyciezca: " + winner.Name);
             winner.TakeCards(ThrowCards());
             winner.TakeCards(warCards.ToArray());
@@ -48,26 +48,26 @@ namespace War.Game
             return warCards;
         } 
 
-        private Zawodnik[] GetWarPlayers()
+        private Player[] GetWarPlayers()
         {
             Card checkedCard = null;
-            var zawodnicy = new List<Zawodnik>();
+            var players = new List<Player>();
             foreach (var card in CheckCards())
             {
                 if (checkedCard == null) checkedCard = card;
                 else if (card.IsEqual(checkedCard))
                 {
-                    var previousZawodnik = GetZawodnikByCard(checkedCard);
-                    if(!zawodnicy.Contains(previousZawodnik))
-                        zawodnicy.Add(previousZawodnik);
-                    zawodnicy.Add(GetZawodnikByCard(card));
+                    var previousZawodnik = GetPlayerByCard(checkedCard);
+                    if(!players.Contains(previousZawodnik))
+                        players.Add(previousZawodnik);
+                    players.Add(GetPlayerByCard(card));
                     checkedCard = card;
                 }
             }
-            return zawodnicy.ToArray();
+            return players.ToArray();
         }
 
-        private Zawodnik GetZawodnikByCard(Card card) => _zawodnicy.First(zawodnik => zawodnik.CheckCard() == card);
+        private Player GetPlayerByCard(Card card) => _players.First(zawodnik => zawodnik.CheckCard() == card);
 
         private bool CanWeDoTheWar()
         {
@@ -99,7 +99,7 @@ namespace War.Game
             return winCard;
         }
 
-        private Card[] CheckCards() => _zawodnicy.Select(zawodnik => zawodnik.CheckCard()).ToArray();
-        private Card[] ThrowCards() => _zawodnicy.Select(zawodnik => zawodnik.ThrowCard()).ToArray();
+        private Card[] CheckCards() => _players.Select(player => player.CheckCard()).ToArray();
+        private Card[] ThrowCards() => _players.Select(player => player.ThrowCard()).ToArray();
     }
 }

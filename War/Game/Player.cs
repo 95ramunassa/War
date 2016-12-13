@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
-using War.Deck;
+using War.Cards;
 
 namespace War.Game
 {
-    public class Zawodnik
+    public class Player
     {
         private readonly Queue<Card> _cards;
         public string Name { get; }
 
-        public Zawodnik(string name, List<Card> cards)
+        public Player(string name, List<Card> cards)
         {
             Name = name;
             _cards = new Queue<Card>(cards);

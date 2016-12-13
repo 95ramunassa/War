@@ -1,4 +1,4 @@
-﻿using War.Deck;
+﻿using War.Cards;
 using War.Game;
 
 namespace War
@@ -7,7 +7,7 @@ namespace War
     {
         private static void Main()
         {
-            var talia = new Talia(new[]
+            var deck = new Deck(new[]
             {
                 new CardColour("♥", 0),
                 new CardColour("♠", 0),
@@ -30,10 +30,10 @@ namespace War
                 new CardType("As", 14)
             });
             
-            var pack = new Pack(talia.GetAllCards());
+            var pack = new Pack(deck.GetAllCards());
 
-            var wojna = new GraWojna(new Zawodnik("Szymon", pack.DistributeShuffledCards(16)), new Zawodnik("Michal", pack.DistributeShuffledCards(16)), new Zawodnik("Funia", pack.DistributeShuffledCards(16)));
-            wojna.Graj();
+            var war = new Game.Game(new Player("Szymon", pack.DistributeShuffledCards(16)), new Player("Michal", pack.DistributeShuffledCards(16)), new Player("Funia", pack.DistributeShuffledCards(16)));
+            war.Play();
         }
     }
 }

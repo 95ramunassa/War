@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace War.Deck
+namespace War.Cards
 {
     public class Pack
     {

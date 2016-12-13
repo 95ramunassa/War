@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace War.Deck
+namespace War.Cards
 {
     public class CardProperty
     {
