@@ -4,14 +4,14 @@ namespace War.Cards
 {
     public class CardProperty
     {
-        public string Name { get; }
-        public int HierarchyLevel { get; }
-
         public CardProperty(string name, int hierarchyLevel)
         {
             Name = name;
             HierarchyLevel = hierarchyLevel;
         }
+
+        public string Name { get; }
+        public int HierarchyLevel { get; }
 
         public bool IsStronger(CardProperty cardType) => HierarchyLevel > cardType.HierarchyLevel;
 

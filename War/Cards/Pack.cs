@@ -12,28 +12,26 @@ namespace War.Cards
             _cards = cards;
         }
 
+        public int CardsAmmount => _cards.Count;
+
         public List<Card> DistributeShuffledCards(int ammount)
         {
             //TODO: Throw an exepction when ammount > _cards.length
             var random = new Random();
             var cards = new List<Card>();
-            for (int i = 0; i < ammount; i++)
+            for (var i = 0; i < ammount; i++)
             {
-                int index = random.Next(_cards.Count);
+                var index = random.Next(_cards.Count);
                 cards.Add(_cards[index]); //probably error xd
                 _cards.RemoveAt(index);
             }
             return cards;
         }
 
-        public int CardsAmmount => _cards.Count;
-
         public void Print()
         {
             foreach (var card in _cards)
-            {
                 card.Print();
-            }
         }
     }
 }

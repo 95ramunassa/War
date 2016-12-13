@@ -26,6 +26,7 @@
 	    2. Ustal do kogo należy
 	    3. Wyświetl zwycięzce
     */
+
     public class War
     {
     }

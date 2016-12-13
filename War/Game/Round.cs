@@ -13,14 +13,12 @@ namespace War.Game
         {
             _players = players;
         }
-        
+
         public void Play(bool isItAWarRound = false)
         {
             var cards = CheckCards();
-            for (int i = 0; i < _players.Count; i++)
-            {
+            for (var i = 0; i < _players.Count; i++)
                 Console.WriteLine(_players[i].Name + "(" + _players[i].NumberOfCards + ") rzucił: " + cards[i].Name);
-            }
 
             Console.WriteLine("\nRozgrywam...\n");
             var warCards = new List<Card>();
@@ -46,24 +44,22 @@ namespace War.Game
                 DoTheWar();
             }
             return warCards;
-        } 
+        }
 
         private Player[] GetWarPlayers()
         {
             Card checkedCard = null;
             var players = new List<Player>();
             foreach (var card in CheckCards())
-            {
                 if (checkedCard == null) checkedCard = card;
                 else if (card.IsEqual(checkedCard))
                 {
                     var previousZawodnik = GetPlayerByCard(checkedCard);
-                    if(!players.Contains(previousZawodnik))
+                    if (!players.Contains(previousZawodnik))
                         players.Add(previousZawodnik);
                     players.Add(GetPlayerByCard(card));
                     checkedCard = card;
                 }
-            }
             return players.ToArray();
         }
 
@@ -73,12 +69,9 @@ namespace War.Game
         {
             var cards = CheckCards().ToArray();
             var checkedCard = cards[0];
-            for (int i = 1; i < cards.Length; i++)
-            {
+            for (var i = 1; i < cards.Length; i++)
                 if (cards[i].IsEqual(checkedCard))
                     return true;
-                    
-            }
             return false;
         }
 
@@ -86,16 +79,10 @@ namespace War.Game
         {
             Card winCard = null;
             foreach (var card in cards)
-            {
                 if (winCard == null)
-                {
                     winCard = card;
-                }
                 else if (card.IsStronger(winCard))
-                {
                     winCard = card;
-                }
-            }
             return winCard;
         }
 

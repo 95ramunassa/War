@@ -4,8 +4,8 @@ namespace War.Cards
 {
     public class Card
     {
-        private readonly CardType _type;
         private readonly CardColour _color;
+        private readonly CardType _type;
 
         //--- Konstruktor i metody ---
         public Card(CardType type, CardColour color)
@@ -13,6 +13,8 @@ namespace War.Cards
             _type = type;
             _color = color;
         }
+
+        public string Name => _type.Name + " " + _color.Name;
 
         public bool IsStronger(Card card)
         {
@@ -27,10 +29,8 @@ namespace War.Cards
                 return true;
             return _type.IsEqual(card._type) && _color.IsWeaker(card._color);
         }
-        
-        public bool IsEqual(Card card) => _type.IsEqual(card._type) && _color.IsEqual(card._color);
 
-        public string Name => _type.Name + " " + _color.Name;
+        public bool IsEqual(Card card) => _type.IsEqual(card._type) && _color.IsEqual(card._color);
 
         public void Print() => Console.WriteLine(Name);
     }

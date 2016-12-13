@@ -14,9 +14,7 @@ namespace War.Game
             _roundNumber = 0;
             _players = new List<Player>();
             foreach (var player in players)
-            {
                 _players.Add(player);
-            }
         }
 
         public void Play()
@@ -32,6 +30,6 @@ namespace War.Game
             } while (ActivePlayers().Count > 1);
         }
 
-        private List<Player> ActivePlayers() =>  _players.Where(player => player.IsHaveCard()).ToList();
+        private List<Player> ActivePlayers() => _players.Where(player => player.IsHaveCard()).ToList();
     }
 }

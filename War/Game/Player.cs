@@ -6,13 +6,16 @@ namespace War.Game
     public class Player
     {
         private readonly Queue<Card> _cards;
-        public string Name { get; }
 
         public Player(string name, List<Card> cards)
         {
             Name = name;
             _cards = new Queue<Card>(cards);
         }
+
+        public string Name { get; }
+
+        public int NumberOfCards => _cards.Count;
 
         public bool IsHaveCard()
         {
@@ -32,19 +35,13 @@ namespace War.Game
         public void TakeCards(Card[] cards)
         {
             foreach (var card in cards)
-            {
                 _cards.Enqueue(card);
-            }
         }
-
-        public int NumberOfCards => _cards.Count;
 
         public void PrintCard()
         {
             foreach (var card in _cards)
-            {
                 card.Print();
-            }
         }
     }
 }

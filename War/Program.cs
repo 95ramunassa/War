@@ -29,10 +29,12 @@ namespace War
                 new CardType("Król", 13),
                 new CardType("As", 14)
             });
-            
+
             var pack = new Pack(deck.GetAllCards());
 
-            var war = new Game.Game(new Player("Szymon", pack.DistributeShuffledCards(16)), new Player("Michal", pack.DistributeShuffledCards(16)), new Player("Funia", pack.DistributeShuffledCards(16)));
+            var war = new Game.Game(new Player("Szymon", pack.DistributeShuffledCards(16)),
+                new Player("Michal", pack.DistributeShuffledCards(16)),
+                new Player("Funia", pack.DistributeShuffledCards(16)));
             war.Play();
         }
     }
