@@ -58,18 +58,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Card.cs" />
-    <Compile Include="CardColour.cs" />
-    <Compile Include="CardProperty.cs" />
-    <Compile Include="CardType.cs" />
-    <Compile Include="War.cs" />
-    <Compile Include="GraWojna.cs" />
-    <Compile Include="Runda.cs" />
-    <Compile Include="Zawodnik.cs" />
-    <Compile Include="Pack.cs" />
+    <Compile Include="Deck\Card.cs" />
+    <Compile Include="Deck\CardColour.cs" />
+    <Compile Include="Deck\CardProperty.cs" />
+    <Compile Include="Deck\CardType.cs" />
+    <Compile Include="Game\War.cs" />
+    <Compile Include="Game\GraWojna.cs" />
+    <Compile Include="Game\Runda.cs" />
+    <Compile Include="Game\Zawodnik.cs" />
+    <Compile Include="Deck\Pack.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Talia.cs" />
+    <Compile Include="Deck\Talia.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

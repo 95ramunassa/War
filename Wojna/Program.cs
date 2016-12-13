@@ -6,7 +6,7 @@
         {
             var talia = new Talia(new[]
             {
-                new CardColour("♥",0),
+                new CardColour("♥", 0),
                 new CardColour("♠", 0),
                 new CardColour("♦", 0),
                 new CardColour("♣", 0)

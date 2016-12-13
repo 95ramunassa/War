@@ -76,6 +76,7 @@ namespace Wojna
             {
                 if (cards[i].IsEqual(checkedCard))
                     return true;
+                    
             }
             return false;
         }

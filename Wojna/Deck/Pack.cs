@@ -14,7 +14,7 @@ namespace Wojna
 
         public List<Card> DistributeShuffledCards(int ammount)
         {
-            //TODO: Throw exepction when ammount > _cards.length
+            //TODO: Throw an exepction when ammount > _cards.length
             var random = new Random();
             var cards = new List<Card>();
             for (int i = 0; i < ammount; i++)

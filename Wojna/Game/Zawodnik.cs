@@ -20,12 +20,12 @@ namespace Wojna
 
         public Card CheckCard()
         {
-            return _cards.Peek();
+            return IsHaveCard() ? _cards.Peek() : null;
         }
 
         public Card ThrowCard()
         {
-            return _cards.Dequeue();
+            return IsHaveCard() ? _cards.Dequeue() : null;
         }
 
         public void TakeCards(Card[] cards)
