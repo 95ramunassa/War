@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Wojna
+namespace War.Game
 {
-    internal class GraWojna
+    public class GraWojna
     {
         private readonly List<Zawodnik> _zawodnicy;
         private int _nrRundy;

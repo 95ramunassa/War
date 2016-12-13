@@ -1,4 +1,7 @@
-﻿namespace Wojna
+﻿using War.Deck;
+using War.Game;
+
+namespace War
 {
     internal class Program
     {

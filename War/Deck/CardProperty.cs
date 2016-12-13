@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Wojna
+namespace War.Deck
 {
-    internal class CardProperty
+    public class CardProperty
     {
         public string Name { get; }
         public int HierarchyLevel { get; }

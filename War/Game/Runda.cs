@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using War.Deck;
 
-namespace Wojna
+namespace War.Game
 {
-    internal class Runda
+    public class Runda
     {
         private readonly List<Zawodnik> _zawodnicy;
 

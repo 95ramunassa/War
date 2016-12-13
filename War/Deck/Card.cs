@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Wojna
+namespace War.Deck
 {
-    internal class Card
+    public class Card
     {
         private readonly CardType _type;
         private readonly CardColour _color;

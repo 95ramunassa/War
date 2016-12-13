@@ -1,4 +1,4 @@
-﻿namespace Wojna
+﻿namespace War.Game
 {
     /*
     Normalna runda
@@ -26,7 +26,7 @@
 	    2. Ustal do kogo należy
 	    3. Wyświetl zwycięzce
     */
-    internal class War
+    public class War
     {
     }
 }

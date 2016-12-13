@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using War.Deck;
 
-namespace Wojna
+namespace War.Game
 {
-    internal class Zawodnik
+    public class Zawodnik
     {
         private readonly Queue<Card> _cards;
         public string Name { get; }

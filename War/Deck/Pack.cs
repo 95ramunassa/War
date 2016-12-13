@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Wojna
+namespace War.Deck
 {
-    internal class Pack
+    public class Pack
     {
         private readonly List<Card> _cards;
 
@@ -20,7 +20,7 @@ namespace Wojna
             for (int i = 0; i < ammount; i++)
             {
                 int index = random.Next(_cards.Count);
-                cards.Add(_cards[index]); //prawdopodobnie błąd
+                cards.Add(_cards[index]); //probably error xd
                 _cards.RemoveAt(index);
             }
             return cards;

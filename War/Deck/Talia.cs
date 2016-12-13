@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Wojna
+namespace War.Deck
 {
-    internal class Talia
+    public class Talia
     {
         private readonly CardColour[] _cardColours;
         private readonly CardType[] _cardTypes;

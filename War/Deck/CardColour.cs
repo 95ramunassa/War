@@ -1,6 +1,6 @@
-﻿namespace Wojna
+﻿namespace War.Deck
 {
-    internal class CardColour : CardProperty
+    public class CardColour : CardProperty
     {
         public CardColour(string name, int hierarchyLevel) : base(name, hierarchyLevel)
         {
