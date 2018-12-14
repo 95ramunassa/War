@@ -17,22 +17,22 @@ namespace War.Game
 
         public int NumberOfCards => _cards.Count;
 
-        public bool IsHaveCard()
+        public bool HasACard()
         {
             return _cards.Count > 0;
         }
 
         public Card CheckCard()
         {
-            return IsHaveCard() ? _cards.Peek() : null;
+            return HasACard() ? _cards.Peek() : null;
         }
 
         public Card ThrowCard()
         {
-            return IsHaveCard() ? _cards.Dequeue() : null;
+            return HasACard() ? _cards.Dequeue() : null;
         }
 
-        public void TakeCards(Card[] cards)
+        public void TakeCards(List<Card> cards)
         {
             foreach (var card in cards)
                 _cards.Enqueue(card);
@@ -42,6 +42,11 @@ namespace War.Game
         {
             foreach (var card in _cards)
                 card.Print();
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }

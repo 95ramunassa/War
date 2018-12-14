@@ -20,16 +20,22 @@ namespace War.Cards
         {
             var cards = new List<Card>(ammount);
             for (var i = 0; i < ammount; i++)
+            {
                 cards.Add(GetCard(type, color));
+            }
             return cards;
         }
 
         public List<Card> GetAllCards(int ammount = 1)
         {
-            var cards = new List<Card>(ammount*_cardTypes.Length*_cardColours.Length);
+            var cards = new List<Card>(ammount * _cardTypes.Length * _cardColours.Length);
             for (var type = 0; type < _cardTypes.Length; type++)
+            {
                 for (var color = 0; color < _cardColours.Length; color++)
+                {
                     cards.AddRange(GetCards(type, color, ammount));
+                }
+            }
             return cards;
         }
 
@@ -37,14 +43,18 @@ namespace War.Cards
         {
             Console.WriteLine("Typy kart w talii:");
             foreach (var type in _cardTypes)
+            {
                 type.Print();
+            }
         }
 
         public void PrintCardColors()
         {
             Console.WriteLine("Kolory kart w talii:");
             foreach (var color in _cardColours)
+            {
                 color.Print();
+            }
         }
     }
 }

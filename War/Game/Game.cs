@@ -30,6 +30,6 @@ namespace War.Game
             } while (ActivePlayers().Count > 1);
         }
 
-        private List<Player> ActivePlayers() => _players.Where(player => player.IsHaveCard()).ToList();
+        private List<Player> ActivePlayers() => _players.Where(player => player.HasACard()).ToList();
     }
 }

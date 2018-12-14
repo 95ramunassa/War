@@ -8,85 +8,118 @@ namespace War.Game
     public class Round
     {
         private readonly List<Player> _players;
-
+        
         public Round(List<Player> players)
         {
             _players = players;
         }
 
-        public void Play(bool isItAWarRound = false)
+        public void Play()
         {
-            var cards = CheckCards();
-            for (var i = 0; i < _players.Count; i++)
-                Console.WriteLine(_players[i].Name + "(" + _players[i].NumberOfCards + ") rzucił: " + cards[i].Name);
+            List<Move> moves = new List<Move>(_players.Count);
+            List<Player> activePlayers = GetActivePlayers();
+            moves.AddRange(getMoves(activePlayers));
 
-            Console.WriteLine("\nRozgrywam...\n");
-            var warCards = new List<Card>();
-            warCards.AddRange(DoTheWar());
-            cards = CheckCards();
-            var winCard = EmergeWinnerCard(cards);
-            Console.WriteLine("Zwyciezka karta: " + winCard.Name);
-            var winner = GetPlayerByCard(winCard);
-            Console.WriteLine("Zwyciezca: " + winner.Name);
-            winner.TakeCards(ThrowCards());
-            winner.TakeCards(warCards.ToArray());
-        }
-
-        private List<Card> DoTheWar()
-        {
-            var warCards = new List<Card>();
-            while (CanWeDoTheWar())
+            //wars
+            bool wars;
+            do
             {
-                Console.WriteLine("Wojenna runda...\n");
-                var warPlayers = GetWarPlayers();
-                warCards.AddRange(warPlayers.Select(player => player.ThrowCard()));
-                warCards.AddRange(warPlayers.Select(player => player.ThrowCard()));
-                DoTheWar();
-            }
-            return warCards;
-        }
-
-        private Player[] GetWarPlayers()
-        {
-            Card checkedCard = null;
-            var players = new List<Player>();
-            foreach (var card in CheckCards())
-                if (checkedCard == null) checkedCard = card;
-                else if (card.IsEqual(checkedCard))
+                List<Move> nonHiddenMoves = moves.FindAll(move => !move.Hidden);
+                Console.WriteLine("Rzucone karty:");
+                
+                Dictionary<Move, List<Move>> aggregatedMoves = new Dictionary<Move, List<Move>>(moves.Count);
+                foreach (var move in nonHiddenMoves)
                 {
-                    var previousZawodnik = GetPlayerByCard(checkedCard);
-                    if (!players.Contains(previousZawodnik))
-                        players.Add(previousZawodnik);
-                    players.Add(GetPlayerByCard(card));
-                    checkedCard = card;
+                    Console.WriteLine($"{move.Player}: {move.Card}");
+                    if (aggregatedMoves.ContainsKey(move))
+                    {
+                        aggregatedMoves[move].Add(move);
+                    }
+                    else
+                    {
+                        aggregatedMoves.Add(move, new List<Move>{move});
+                    }
                 }
-            return players.ToArray();
+
+                wars = false;
+                foreach (var sameCardMove in aggregatedMoves)
+                {
+                    if (sameCardMove.Value.Count > 1)
+                    {
+                        Console.WriteLine("Wojna!");
+                        foreach (var warMove in sameCardMove.Value)
+                        {
+                            Console.WriteLine($"[WOJNA] Ruch {warMove.Player.Name}...");
+                            if (warMove.Player.HasACard())
+                            {
+                                warMove.Hidden = true;
+                                Card hiddenCard = warMove.Player.ThrowCard();
+                                if (warMove.Player.HasACard())
+                                {
+                                    moves.Add(new Move(warMove.Player, hiddenCard, true));
+                                    ThrowInfo(warMove.Player, hiddenCard, true);
+
+                                    Card warCard = warMove.Player.ThrowCard();
+                                    ThrowInfo(warMove.Player, warCard, false);
+                                    moves.Add(new Move(warMove.Player, warCard, false));
+                                }
+                                else
+                                {
+                                    moves.Add(new Move(warMove.Player, hiddenCard, false));
+                                    ThrowInfo(warMove.Player, hiddenCard, false);
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine($"[WOJNA] {warMove.Player} nie ma już kart!");
+                            }
+                        }
+                        wars = true;
+                    }
+                }
+            } while (wars);
+            
+            //who is a winner?
+            moves.Sort((m1, m2) => m2.CompareTo(m1));
+            Player winner = moves.First(t => !t.Hidden).Player;
+            Console.WriteLine($"Zwycięzca rundy: {winner.Name}. Zebrano {moves.Count} karty:");
+            foreach (var move in moves)
+            {
+                Console.WriteLine($"{move.Card} ({move.Player})");
+            }
+            winner.TakeCards(moves.ConvertAll(move=>move.Card));
         }
 
-        private Player GetPlayerByCard(Card card) => _players.First(zawodnik => zawodnik.CheckCard() == card);
-
-        private bool CanWeDoTheWar()
+        private List<Player> GetActivePlayers()
         {
-            var cards = CheckCards().ToArray();
-            var checkedCard = cards[0];
-            for (var i = 1; i < cards.Length; i++)
-                if (cards[i].IsEqual(checkedCard))
-                    return true;
-            return false;
+            List<Player> players = new List<Player>(_players.Count);
+            foreach (var player in _players)
+            {
+                if(player.HasACard())
+                    players.Add(player);
+            }
+            return players;
         }
 
-        private static Card EmergeWinnerCard(IEnumerable<Card> cards)
+        private List<Move> getMoves(List<Player> players, bool hidden = false)
         {
-            Card winCard = null;
-            foreach (var card in cards)
-                if (winCard == null)
-                    winCard = card;
-                else if (card.IsStronger(winCard))
-                    winCard = card;
-            return winCard;
+            List<Move> moves = new List<Move>(players.Count);
+            foreach (var player in players)
+            {
+                Card card = player.ThrowCard();
+                ThrowInfo(player, card, hidden);
+                moves.Add(new Move(player, card, hidden));
+            }
+
+            return moves;
         }
 
-        private Card[] CheckCards() => _players.Select(player => player.CheckCard()).ToArray();
-        private Card[] ThrowCards() => _players.Select(player => player.ThrowCard()).ToArray();
+        private Card ThrowInfo(Player player, Card card, bool hidden)
+        {
+            Console.WriteLine(hidden
+                ? $"{player.Name} (zostało kart: {player.NumberOfCards}) rzucił kartę koszulką do góry. (({card.Name}))"
+                : $"{player.Name} (zostało kart: {player.NumberOfCards}) rzucił {card.Name}.");
+            return card;
+        }
     }
 }

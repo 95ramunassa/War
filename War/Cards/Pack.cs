@@ -22,7 +22,7 @@ namespace War.Cards
             for (var i = 0; i < ammount; i++)
             {
                 var index = random.Next(_cards.Count);
-                cards.Add(_cards[index]); //probably error xd
+                cards.Add(_cards[index]);
                 _cards.RemoveAt(index);
             }
             return cards;
